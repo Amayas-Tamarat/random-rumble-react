@@ -19,11 +19,15 @@ export const fightSlice = createSlice({
     initialState,
     reducers: {
       hitMonster: (state, action) => {
-        state.monster.pv -= action.payload.monsterDecreasePv
+        state.monster.pv -= action.payload.monsterDecreasePv;
       },
       hitBack: (state, action) => {
-        state.players[action.payload.playerHit].pv -= action.payload.playerDecreasePv
-      }
+        const { playerHit, playerDecreasePv } = action.payload;
+        const playerToUpdate = state.players[playerHit];
+          if (playerToUpdate && playerToUpdate.pv > 0) {
+          playerToUpdate.pv -= playerDecreasePv;
+        }
+      },
     },
   });
   
