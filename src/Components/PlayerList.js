@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
-import PlayerCard from './PlayerCard';
+import React from "react";
+import PlayerCard from "./PlayerCard";
+import { useSelector } from "react-redux";
 
 const PlayerList = () => {
-  const [players] = useState({
-    1: { name: "John", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 1 },
-    2: { name: "Jack", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 2 },
-    3: { name: "Jessy", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 3 },
-    4: { name: "Jenny", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 4 }
-  });
-
-  const displayPlayers = () => {
-    return Object.keys(players).map(key => (
-      <PlayerCard key={players[key].id} player={players[key]} />
-    ));
-  };
+  const players = useSelector(store => store.fight.players);
 
   return (
-    <div className='row'>
-      {displayPlayers()}
-    </div>
-  );
+  <div className="row">
+    {players.map((player, index) => (
+      <PlayerCard key={index} player={player} />
+    ))}
+  </div>
+  )
 };
 
 export default PlayerList;
